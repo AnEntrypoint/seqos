@@ -1,0 +1,26 @@
+{
+  "name": "seqos",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./core": "./core/index.js",
+    "./dag": "./dag/index.js",
+    "./services": "./services/index.js",
+    "./edge": "./edge/index.js",
+    "./ui": "./ui/index.js"
+  },
+  "bin": {
+    "seqos": "./cli.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node cli.js server --dev",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "kuzu": "^0.11.3",
+    "webjsx": "^0.0.73"
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SeqOS - Workflow Builder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background: #09090b; display: flex; }
+    #root { width: 100%; height: 100%; }
+    .dag-container { background: #09090b; color: #f2f2f2; width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    .dag-top-bar { height: 60px; background: rgba(15, 15, 20, 0.6); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(102, 126, 234, 0.1); display: flex; align-items: center; padding: 0 20px; gap: 16px; z-index: 4; }
+    .dag-bar-title { font-size: 14px; font-weight: 600; text-transform: uppercase; color: #667eea; }
+    .dag-bar-button { padding: 8px 16px; background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.2); color: #f2f2f2; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+    .dag-bar-button:hover { background: rgba(102, 126, 234, 0.2); border-color: rgba(102, 126, 234, 0.4); }
+    .dag-main { display: flex; flex: 1; overflow: hidden; }
+    .dag-canvas { flex: 1; position: relative; background: linear-gradient(135deg, #09090b 0%, #0d0a1a 100%); overflow: hidden; z-index: 1; }
+    .dag-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .dag-nodes-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+    .dag-node { position: absolute; user-select: none; transition: transform 0.2s ease-out; cursor: grab; }
+    .dag-node-inner { position: relative; width: 128px; height: 128px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; backdrop-filter: blur(6px); background: rgba(102, 126, 234, 0.15) !important; border: 1px solid rgba(102, 126, 234, 0.3) !important; }
+    .dag-node-icon { font-size: 32px; margin-bottom: 8px; }
+    .dag-node-label { font-size: 11px; font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+    .dag-handle { position: absolute; width: 15px; height: 15px; background: #f2f2f2; border-radius: 50%; cursor: crosshair; border: 2px solid #09090b; }
+    .dag-handle.input { left: -7px; top: 50%; transform: translateY(-50%); }
+    .dag-handle.output { right: -7px; top: 50%; transform: translateY(-50%); }
+    .dag-connection { stroke: #667eea; stroke-width: 2px; fill: none; stroke-dasharray: 8,4; animation: flowDash 0.8s linear infinite; }
+    @keyframes flowDash { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
+    .dag-delete-btn { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; background: #e50914; border: none; border-radius: 50%; color: white; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 0 10px 5px rgba(229, 9, 20, 0.7); z-index: 10; }
+    .dag-delete-btn:hover { background: #cc0000; }
+    .dag-sidebar { width: 350px; background: rgba(15, 15, 20, 0.95); backdrop-filter: blur(10px); border-left: 1px solid rgba(102, 126, 234, 0.1); overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; }
+    .dag-sidebar-tabs { display: flex; border-bottom: 1px solid rgba(102, 126, 234, 0.1); }
+    .dag-sidebar-tab { flex: 1; padding: 12px; text-align: center; font-size: 12px; font-weight: 600; text-transform: uppercase; cursor: pointer; color: #999; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.5px; }
+    .dag-sidebar-tab.active { color: #667eea; border-bottom-color: #667eea; }
+    .dag-sidebar-tab:hover { color: #aaa; }
+    .dag-sidebar-content { flex: 1; overflow-y: auto; padding: 16px; }
+    .dag-sidebar-title { font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 12px; color: #667eea; letter-spacing: 0.5px; }
+    .dag-node-item { padding: 12px; margin-bottom: 8px; background: rgba(102, 126, 234, 0.05); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 12px; font-weight: 500; }
+    .dag-node-item:hover { background: rgba(102, 126, 234, 0.1); border-color: rgba(102, 126, 234, 0.3); transform: translateX(2px); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import { initUI } from '/ui/ui-init-v2.js';
+    initUI();
+  </script>
+</body>
+</html>
